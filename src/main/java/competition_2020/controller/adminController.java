@@ -38,7 +38,13 @@ public class adminController {
         } else {
             map.put("key", "200");// 登陆失败
         }
+
         return map;
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        return "index";
     }
 
 }

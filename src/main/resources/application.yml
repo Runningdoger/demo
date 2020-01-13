@@ -5,3 +5,7 @@ spring:
     username: root
     password: 114019
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: competition_2020.pojo

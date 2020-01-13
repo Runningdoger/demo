@@ -1,7 +1,7 @@
 spring:
   datasource:
-    name: cloud
-    url: jdbc:mysql://121.199.5.203:3306/cloud?useUnicode=true&characterEncoding=UTF-8
+    name: nyps
+    url: jdbc:mysql://121.199.5.203:3306/nyps?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 114019
     driver-class-name: com.mysql.cj.jdbc.Driver

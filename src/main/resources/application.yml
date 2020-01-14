@@ -6,9 +6,11 @@ spring:
     password: 114019
     driver-class-name: com.mysql.cj.jdbc.Driver
   resources:
-    static-locations: /templates/
+    static-locations: classpath:templates/,classpath:static/
   thymeleaf:
     suffix: .html
+  mvc:
+    static-path-pattern: /**
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

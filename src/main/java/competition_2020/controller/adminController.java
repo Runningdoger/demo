@@ -42,9 +42,4 @@ public class adminController {
         return map;
     }
 
-    @RequestMapping("/test")
-    public String test(){
-        return "index";
-    }
-
 }

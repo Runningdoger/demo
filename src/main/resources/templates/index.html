@@ -47,20 +47,19 @@
             }
             $.ajax
             ({
-                url: "http://localhost:8080/m_adminLogin",
+                url: "http://localhost:8080/",
                 dataType: "json",
-                type: "get",
+                type: "post",
                 data: {
                     username: username,
                     password: password
                 },
                 success:function(res){
                     console.log(res);
-                    if(res.key == 100){
+                    if(res.flag == true){
                         window.open("http://localhost:8080/2");
-                        alert("登录成功");
                     }
-                    else if(res.key == 200){
+                    else if(res.flag == false){
                         alert("登录失败");
                     }
                 },

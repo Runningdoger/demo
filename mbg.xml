@@ -41,8 +41,7 @@
 	<!-- 指定每个表的生成策略 -->
     <!-- <table tableName="admin" domainObjectName="Administrator"></table>
     <table tableName="user" domainObjectName="User"></table> -->
-<!--    <table tableName="s_admin" domainObjectName="sAdmin"></table>-->
-    <table tableName="u" domainObjectName="User1"></table>
+    <table tableName="m_admin" domainObjectName="sAdmin"></table>
 
     
   </context>

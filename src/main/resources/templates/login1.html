@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Major Admin Login</title>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+</head>
+<body>
+<div id="loginpanelwrap">
+  	
+	<div class="loginheader">
+    <div class="logintitle">Major Admin</div>
+    </div>
+
+     
+    <div class="loginform">
+        
+        <div class="loginform_row">
+        <label>Username:</label>
+        <input id="username" type="text" class="loginform_input" name="" />
+        </div>
+        <div class="loginform_row">
+        <label>Password:</label>
+        <input id="password" type="text" class="loginform_input" name="" />
+        </div>
+        <div class="loginform_row">
+        <input type="button" class="loginform_submit" value="Login" onclick="showAdress()"/>
+        </div> 
+        <div class="clear"></div>
+    </div>
+ 
+        <a href="/2">tiao</a>
+
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        function showAdress()
+        {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            if(!username){
+                alert("用户名不能为空");
+                return;
+            }
+            else if(!password){
+                alert("密码不能为空");
+                return;
+            }
+            $.ajax
+            ({
+                url: "http://localhost:8080/login",
+                dataType: "json",
+                type: "post",
+                data: {
+                    username: username,
+                    password: password
+                },
+                success:function(res){
+                    console.log(res);
+                    if(res.flag == true){
+                        // window.open("http://localhost:8080/2");  //另外开一个页面，原来的登录界面不关
+                        window.location.href = 'http://localhost:8080/';  //在原来的页面跳转，不开多余的界面
+                    }
+                    else if(res.flag == false){
+                        alert("用户名或密码错误，请重新输入！");
+                    }
+                },
+                error:function(){
+                    alert('平台正在维护，请联系厂家解决！');
+                },
+            });
+        }
+    </script>
+
+
+</div>
+
+    	
+</body>
+</html>

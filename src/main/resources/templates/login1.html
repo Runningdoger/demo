@@ -4,8 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Major Admin Login</title>
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+
+    <!--<style>
+        body {
+            background: #e1c192 url(/static/images/wood_pattern.jpg);
+        }
+    </style>-->
+
 </head>
-<body>
+<body background="/static/images/wood_pattern.jpg">
 <div id="loginpanelwrap">
   	
 	<div class="loginheader">
@@ -28,8 +35,6 @@
         </div> 
         <div class="clear"></div>
     </div>
- 
-        <a href="/2">tiao</a>
 
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript">
@@ -58,7 +63,7 @@
                     console.log(res);
                     if(res.flag == true){
                         // window.open("http://localhost:8080/2");  //另外开一个页面，原来的登录界面不关
-                        window.location.href = 'http://localhost:8080/';  //在原来的页面跳转，不开多余的界面
+                        window.location.href = 'http://localhost:8080/MajorAdminIndex';  //在原来的页面跳转，不开多余的界面
                     }
                     else if(res.flag == false){
                         alert("用户名或密码错误，请重新输入！");

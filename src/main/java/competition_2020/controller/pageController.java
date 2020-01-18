@@ -16,9 +16,14 @@ public class pageController {
         return "admin-add";
     }
 
-    @RequestMapping({"/","index"})
+    @RequestMapping({"/MajorAdminIndex","/"})
     public String index() {
-        return "index";
+        return "MajorAdmin/index";
+    }
+
+    @RequestMapping("/login2")
+    public String c(){
+        return "login2";
     }
 
     @RequestMapping("/login")
@@ -28,17 +33,27 @@ public class pageController {
 
     @RequestMapping("/order-list")
     public String orderList(){
-        return "/order-list.html";
+        return "order-list";
     }
 
     @RequestMapping("/welcome")
     public String welcome(){
-        return "welcome";
+        return "MajorAdmin/welcome";
     }
 
     @RequestMapping("/echarts1")
     public String echarts1(){
         return "echarts1";
+    }
+
+    @RequestMapping("/welcome1")
+    public String welcome1(){
+        return "welcome1";
+    }
+
+    @RequestMapping("/2")
+    public String d(){
+        return "MajorAdmin/2";
     }
 
 }

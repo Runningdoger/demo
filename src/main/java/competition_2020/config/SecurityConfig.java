@@ -35,7 +35,8 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/static/**").permitAll()
-                .anyRequest().permitAll();
+                .antMatchers("/test").permitAll()
+                .anyRequest().authenticated();
 
         http.formLogin()
                 .loginPage("/login")
@@ -51,5 +52,4 @@ public class SecurityConfig extends  WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
-
 }

@@ -26,13 +26,25 @@
 <script type="text/javascript">
     // 百度地图API功能
     var map = new BMap.Map("allmap");    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.292803,30.253956), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //设置地图中心点
+    var x = 116.14995;
+    var y = 30.157512;
+    map.centerAndZoom(new BMap.Point(x,y), 11);  // 初始化地图,设置中心点坐标和地图级别
     //添加地图类型控件
     map.addControl(new BMap.MapTypeControl({
         mapTypes:[
             BMAP_NORMAL_MAP,
             BMAP_HYBRID_MAP
         ]}));
-    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.setCurrentCity("宿松");          // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+    var p1 = new BMap.Point(116.14823,30.159347);
+    var p2 = new BMap.Point(116.142947,30.15747);
+    var p3 = new BMap.Point(116.139893,30.162848);
+    var p4 = new BMap.Point(116.133291,30.161958);
+
+    var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+    driving.search(p1, p2,{waypoints:[p3,p4]});
+
 </script>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="competition_2020.mapper.carMapper">
+  <resultMap id="BaseResultMap" type="competition_2020.pojo.car">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="mileage" jdbcType="INTEGER" property="mileage" />
+    <result column="s_time" jdbcType="VARCHAR" property="sTime" />
+    <result column="e_time" jdbcType="VARCHAR" property="eTime" />
+    <result column="dot_id" jdbcType="INTEGER" property="dotId" />
+    <result column="delivery_id" jdbcType="INTEGER" property="deliveryId" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+  </resultMap>
+
+  <resultMap id="CarAndDotAndDelivery" type="competition_2020.pojo.car">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="mileage" jdbcType="INTEGER" property="mileage" />
+    <result column="s_time" jdbcType="VARCHAR" property="sTime" />
+    <result column="e_time" jdbcType="VARCHAR" property="eTime" />
+    <result column="dot_id" jdbcType="INTEGER" property="dotId" />
+    <result column="delivery_id" jdbcType="INTEGER" property="deliveryId" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <association property="dot" javaType="competition_2020.pojo.Dot">
+      <id column="dot_id" jdbcType="INTEGER" property="id" />
+      <result column="cname" jdbcType="VARCHAR" property="name" /> <!--当两张表有字段一样时，要取别名，要不然会有冲突-->
+    </association>
+    <association property="delivery" javaType="competition_2020.pojo.Delivery">
+      <id column="dot_id" jdbcType="INTEGER" property="id" />
+      <result column="dname" jdbcType="VARCHAR" property="name" /> <!--当两张表有字段一样时，要取别名，要不然会有冲突-->
+    </association>
+  </resultMap>
+
+  <select id="selectCarAndDotAndDelivery" resultMap="CarAndDotAndDelivery">
+    SELECT
+    c.id,
+    c.number,
+    c.weight,
+    c.mileage,
+    c.s_time,
+    c.e_time,
+    c.dot_id,
+    c.delivery_id,
+    c.company_id,
+    d1.id,
+    d1.name "cname",
+    d2.id,
+    d2.name "dname"
+    FROM (cars c,dot d1)
+		LEFT JOIN delivery d2
+		ON c.dot_id = d2.id and c.delivery_id = d1.id
+  </select>
+
+  <select id="selectCarAndDotAndDelivery2" resultMap="CarAndDotAndDelivery">
+    SELECT
+    c.id,
+    c.number,
+    c.weight,
+    c.mileage,
+    c.s_time,
+    c.e_time,
+    c.dot_id,
+    c.delivery_id,
+    c.company_id,
+    d1.id,
+    d1.name "cname",
+    d2.id,
+    d2.name "dname"
+    FROM (cars c,dot d1)
+		JOIN delivery d2
+		where c.dot_id = d2.id and c.delivery_id = d1.id
+    <if test="id != null">
+      AND c.id = #{id}
+    </if>
+    <if test="number != null">
+      AND c.number LIKE CONCAT('%',#{number},'%')
+    </if>
+    <if test="cname != null">
+      AND d1.name LIKE CONCAT('%',#{cname},'%')
+    </if>
+    <if test="dname != null">
+    AND d2.name LIKE CONCAT('%',#{dname},'%')
+    </if>
+  </select>
+
+  <delete id="deleteAll" parameterType="competition_2020.pojo.car">
+    delete from cars where id in
+    <foreach collection="list" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, number, weight, mileage, s_time, e_time, dot_id, delivery_id, company_id
+  </sql>
+  <select id="selectByExample" parameterType="competition_2020.pojo.carExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cars
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cars
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cars
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="competition_2020.pojo.carExample">
+    delete from cars
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="competition_2020.pojo.car">
+    insert into cars (id, number, weight, 
+      mileage, s_time, e_time, 
+      dot_id, delivery_id, company_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, 
+      #{mileage,jdbcType=INTEGER}, #{sTime,jdbcType=VARCHAR}, #{eTime,jdbcType=VARCHAR}, 
+      #{dotId,jdbcType=INTEGER}, #{deliveryId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="competition_2020.pojo.car">
+    insert into cars
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="mileage != null">
+        mileage,
+      </if>
+      <if test="sTime != null">
+        s_time,
+      </if>
+      <if test="eTime != null">
+        e_time,
+      </if>
+      <if test="dotId != null">
+        dot_id,
+      </if>
+      <if test="deliveryId != null">
+        delivery_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="mileage != null">
+        #{mileage,jdbcType=INTEGER},
+      </if>
+      <if test="sTime != null">
+        #{sTime,jdbcType=VARCHAR},
+      </if>
+      <if test="eTime != null">
+        #{eTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dotId != null">
+        #{dotId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryId != null">
+        #{deliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="competition_2020.pojo.carExample" resultType="java.lang.Long">
+    select count(*) from cars
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cars
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.mileage != null">
+        mileage = #{record.mileage,jdbcType=INTEGER},
+      </if>
+      <if test="record.sTime != null">
+        s_time = #{record.sTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eTime != null">
+        e_time = #{record.eTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dotId != null">
+        dot_id = #{record.dotId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryId != null">
+        delivery_id = #{record.deliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyId != null">
+        company_id = #{record.companyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cars
+    set id = #{record.id,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=INTEGER},
+      mileage = #{record.mileage,jdbcType=INTEGER},
+      s_time = #{record.sTime,jdbcType=VARCHAR},
+      e_time = #{record.eTime,jdbcType=VARCHAR},
+      dot_id = #{record.dotId,jdbcType=INTEGER},
+      delivery_id = #{record.deliveryId,jdbcType=INTEGER},
+      company_id = #{record.companyId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="competition_2020.pojo.car">
+    update cars
+    <set>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="mileage != null">
+        mileage = #{mileage,jdbcType=INTEGER},
+      </if>
+      <if test="sTime != null">
+        s_time = #{sTime,jdbcType=VARCHAR},
+      </if>
+      <if test="eTime != null">
+        e_time = #{eTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dotId != null">
+        dot_id = #{dotId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryId != null">
+        delivery_id = #{deliveryId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="competition_2020.pojo.car">
+    update cars
+    set number = #{number,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER},
+      mileage = #{mileage,jdbcType=INTEGER},
+      s_time = #{sTime,jdbcType=VARCHAR},
+      e_time = #{eTime,jdbcType=VARCHAR},
+      dot_id = #{dotId,jdbcType=INTEGER},
+      delivery_id = #{deliveryId,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

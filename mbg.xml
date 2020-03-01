@@ -41,8 +41,10 @@
 	<!-- 指定每个表的生成策略 -->
     <!-- <table tableName="admin" domainObjectName="Administrator"></table>
     <table tableName="user" domainObjectName="User"></table> -->
-    <table tableName="m_admin" domainObjectName="sAdmin"></table>
-
+    <!--<table tableName="dis_point" domainObjectName="DisPoint"></table>-->
+    <!--<table tableName="dot" domainObjectName="Dot"></table>-->
+    <!--<table tableName="delivery" domainObjectName="Delivery"></table>-->
+    <table tableName="cars" domainObjectName="car"></table>
     
   </context>
 </generatorConfiguration>

@@ -1,59 +1,123 @@
 package competition_2020.pojo;
 
-import java.util.Arrays;
-
 public class Delivery {
-    String longitude;
-    String latitude;
-    double demand;
-    double[] dis;
+    private Integer id;
 
-    public Delivery(String longitude, String latitude, double demand, double[] dis) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.demand = demand;
-        this.dis = dis;
+    private String name;
+
+    private String phone;
+
+    private String sex;
+
+    private String headUrl;
+
+    private String age;
+
+    private Integer power;
+
+    private String sTime;
+
+    private String eTime;
+
+    private Integer companyId;
+
+    private Integer dotId;
+
+    private Dot dot;
+
+    public void setDot(Dot dot) {
+        this.dot = dot;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public Dot getDot() {
+        return dot;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public Integer getId() {
+        return id;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public String getName() {
+        return name;
     }
 
-    public double getDemand() {
-        return demand;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public void setDemand(double demand) {
-        this.demand = demand;
+    public String getPhone() {
+        return phone;
     }
 
-    public double[] getDis() {
-        return dis;
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 
-    public void setDis(double[] dis) {
-        this.dis = dis;
+    public String getSex() {
+        return sex;
     }
 
-    @Override
-    public String toString() {
-        return "delivery{" +
-                "longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", demand=" + demand +
-                ", dis=" + Arrays.toString(dis) +
-                '}';
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl == null ? null : headUrl.trim();
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age == null ? null : age.trim();
+    }
+
+    public Integer getPower() {
+        return power;
+    }
+
+    public void setPower(Integer power) {
+        this.power = power;
+    }
+
+    public String getsTime() {
+        return sTime;
+    }
+
+    public void setsTime(String sTime) {
+        this.sTime = sTime == null ? null : sTime.trim();
+    }
+
+    public String geteTime() {
+        return eTime;
+    }
+
+    public void seteTime(String eTime) {
+        this.eTime = eTime == null ? null : eTime.trim();
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getDotId() {
+        return dotId;
+    }
+
+    public void setDotId(Integer dotId) {
+        this.dotId = dotId;
     }
 }
